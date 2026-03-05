@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Haneen Osama · Software Tester</title>
+    <!-- Font Awesome 6 (free) for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            transition: background-color 0.3s ease, color 0.2s ease, border-color 0.2s ease;
+        }
+
+        /* dark mode (default) — tech colours with deep blue/purple tones */
+        :root {
+            --bg: #0a0c14;
+            --surface: #121520;
+            --card: #1b1f2b;
+            --primary: #3b82f6;        /* electric blue */
+            --secondary: #8b5cf6;       /* purple accent */
+            --text: #e2e8f0;
+            --text-muted: #9aa4bf;
+            --border: #2d3345;
+            --nav-bg: #0f1322cc;
+            --glow: rgba(59,130,246,0.4);
+            --btn-light-bg: #2d3345;
+            --btn-light-icon: #fbbf24;
+        }
+
+        /* light mode (toggled) */
+        body.light {
+            --bg: #f4f7fb;
+            --surface: #ffffff;
+            --card: #ffffff;
+            --primary: #2563eb;
+            --secondary: #7c3aed;
+            --text: #1e293b;
+            --text-muted: #475569;
+            --border: #cbd5e1;
+            --nav-bg: #ffffffcc;
+            --glow: rgba(37,99,235,0.2);
+            --btn-light-bg: #e2e8f0;
+            --btn-light-icon: #f59e0b;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* navigation */
+        nav {
+            position: sticky;
+            top: 1rem;
+            z-index: 1000;
+            background: var(--nav-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+            border-radius: 60px;
+            width: fit-content;
+            margin: 1rem auto;
+            padding: 0.6rem 1.5rem;
+            box-shadow: 0 10px 30px -10px var(--glow);
+        }
+
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            list-style: none;
+        }
+
+        .nav-links li a {
+            font-weight: 500;
+            padding: 0.4rem 0.8rem;
+            border-radius: 30px;
+            transition: 0.2s;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+
+        .nav-links li a:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .theme-toggle {
+            background: var(--btn-light-bg);
+            border: none;
+            border-radius: 40px;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: var(--btn-light-icon);
+            transition: 0.2s;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 10px var(--glow);
+        }
+
+        /* CV Dropdown */
+        .cv-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .cv-btn {
+            background: linear-gradient(145deg, var(--primary), var(--secondary));
+            color: white !important;
+            font-weight: 600;
+            padding: 0.4rem 1rem !important;
+            border-radius: 40px;
+            box-shadow: 0 4px 12px var(--glow);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.85rem !important;
+        }
+
+        .cv-dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: var(--card);
+            min-width: 140px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            z-index: 1000;
+            margin-top: 10px;
+            overflow: hidden;
+        }
+
+        .cv-dropdown-content a {
+            color: var(--text);
+            padding: 10px 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            transition: 0.2s;
+        }
+
+        .cv-dropdown-content a:hover {
+            background: var(--surface);
+            color: var(--primary);
+        }
+
+        .cv-dropdown:hover .cv-dropdown-content {
+            display: block;
+        }
+
+        /* header / top info */
+        .hero {
+            text-align: center;
+            margin: 2rem 0 2rem;
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #a5b4fc, #818cf8, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+            padding: 0 10px;
+        }
+
+        .usp {
+            font-size: 1.3rem;
+            color: var(--primary);
+            font-weight: 400;
+            margin: 0.8rem 0 1.5rem;
+            padding: 0 10px;
+        }
+
+        .contact-icons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            font-size: 1.3rem;
+        }
+
+        .contact-icons a {
+            background: var(--card);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--border);
+            transition: 0.25s;
+            color: var(--text);
+        }
+
+        .contact-icons a:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            transform: translateY(-6px);
+            box-shadow: 0 8px 20px var(--glow);
+        }
+
+        /* section headings */
+        .section-title {
+            font-size: 2rem;
+            font-weight: 600;
+            margin: 2.5rem 0 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 0.6rem;
+        }
+
+        .section-title i {
+            color: var(--primary);
+            font-size: 1.8rem;
+        }
+
+        /* about */
+        .about-text {
+            background: var(--card);
+            padding: 1.8rem;
+            border-radius: 28px;
+            border: 1px solid var(--border);
+            font-size: 1.1rem;
+            box-shadow: 0 20px 30px -15px rgba(0,0,0,0.5);
+        }
+
+        /* Education Section */
+        .education-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 28px;
+            padding: 1.8rem;
+            margin-bottom: 2rem;
+        }
+
+        .education-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .education-header i {
+            font-size: 2rem;
+            color: var(--secondary);
+        }
+
+        .education-header h3 {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .education-details {
+            margin-left: 3rem;
+        }
+
+        .education-details p {
+            margin-bottom: 0.5rem;
+            color: var(--text-muted);
+        }
+
+        .education-details strong {
+            color: var(--text);
+        }
+
+        .gpa-badge {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        /* skills grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .skill-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 1.5rem;
+            transition: 0.2s;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.3);
+        }
+
+        .skill-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: 0 18px 30px -12px var(--glow);
+        }
+
+        .skill-icon {
+            font-size: 2rem;
+            color: var(--secondary);
+            margin-bottom: 0.8rem;
+        }
+
+        .skill-card h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .skill-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            list-style: none;
+        }
+
+        .skill-items li {
+            background: var(--surface);
+            padding: 0.3rem 0.9rem;
+            border-radius: 40px;
+            border: 1px solid var(--border);
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .skill-desc {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            border-left: 3px solid var(--primary);
+            padding-left: 1rem;
+        }
+
+        /* courses section */
+        .course-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .course-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .course-header i {
+            font-size: 1.8rem;
+            color: var(--secondary);
+        }
+
+        .course-header h3 {
+            font-size: 1.3rem;
+            color: var(--primary);
+        }
+
+        .course-badge {
+            background: var(--surface);
+            padding: 0.3rem 1rem;
+            border-radius: 40px;
+            border: 1px solid var(--border);
+            font-size: 0.85rem;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        /* projects */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .project-card {
+            background: var(--card);
+            border-radius: 24px;
+            border: 1px solid var(--border);
+            padding: 1.5rem;
+            transition: 0.2s;
+        }
+
+        .project-card:hover {
+            border-color: var(--secondary);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px -10px var(--glow);
+        }
+
+        .project-icon {
+            font-size: 1.8rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        .project-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .project-card p {
+            color: var(--text-muted);
+            margin: 0.8rem 0 1.2rem;
+            font-size: 0.95rem;
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: var(--surface);
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            border: 1px solid var(--border);
+            transition: 0.2s;
+            font-size: 0.9rem;
+        }
+
+        .project-link:hover {
+            background: var(--primary);
+            color: white;
+            border-color: transparent;
+        }
+
+        /* contact form */
+        .contact-form {
+            background: var(--card);
+            border-radius: 28px;
+            padding: 2rem;
+            border: 1px solid var(--border);
+            margin: 2rem 0 1.5rem;
+        }
+
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .form-group {
+            flex: 1 1 250px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.3rem;
+            color: var(--primary);
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem 1.2rem;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 30px;
+            color: var(--text);
+            font-size: 0.95rem;
+            outline: none;
+            transition: 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--glow);
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background: linear-gradient(145deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 0.9rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .submit-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 20px var(--glow);
+        }
+
+        /* bottom contact section */
+        .bottom-contact {
+            text-align: center;
+            margin: 2.5rem 0 1.5rem;
+            padding: 1.8rem;
+            background: var(--card);
+            border-radius: 40px;
+            border: 1px solid var(--border);
+        }
+
+        .bottom-contact h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.2rem;
+            color: var(--primary);
+        }
+
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border);
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        /* small animations */
+        @keyframes float {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0); }
+        }
+        .contact-icons a {
+            animation: float 5s infinite ease-in-out;
+        }
+
+        /* ========== للشاشات الصغيرة - الموبايل ========== */
+        @media screen and (max-width: 768px) {
+            .container {
+                padding: 0 16px;
+            }
+            
+            nav {
+                width: 95%;
+                padding: 0.5rem 1rem;
+                top: 0.5rem;
+            }
+            
+            .nav-links {
+                gap: 0.5rem;
+            }
+            
+            .nav-links li a {
+                padding: 0.3rem 0.6rem;
+                font-size: 0.8rem;
+            }
+            
+            .cv-btn {
+                padding: 0.3rem 0.8rem !important;
+                font-size: 0.8rem !important;
+            }
+            
+            .theme-toggle {
+                width: 32px;
+                height: 32px;
+                font-size: 1rem;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .usp {
+                font-size: 1rem;
+            }
+            
+            .contact-icons {
+                gap: 1rem;
+            }
+            
+            .contact-icons a {
+                width: 45px;
+                height: 45px;
+                font-size: 1.1rem;
+            }
+            
+            .section-title {
+                font-size: 1.6rem;
+                margin: 2rem 0 1.2rem;
+            }
+            
+            .section-title i {
+                font-size: 1.5rem;
+            }
+            
+            .about-text {
+                padding: 1.5rem;
+                font-size: 1rem;
+            }
+            
+            .skills-grid {
+                gap: 1rem;
+            }
+            
+            .skill-card {
+                padding: 1.3rem;
+            }
+            
+            .education-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 0.5rem;
+            }
+            
+            .education-details {
+                margin-left: 0;
+                text-align: center;
+            }
+            
+            .projects-grid {
+                gap: 1rem;
+            }
+            
+            .project-card {
+                padding: 1.3rem;
+            }
+            
+            .contact-form {
+                padding: 1.5rem;
+            }
+            
+            .bottom-contact {
+                padding: 1.5rem;
+            }
+            
+            .bottom-contact .contact-icons {
+                gap: 0.8rem;
+            }
+            
+            .cv-dropdown-content {
+                right: 0;
+                left: auto;
+                min-width: 130px;
+            }
+            
+            .cv-dropdown-content a {
+                padding: 10px 12px;
+                font-size: 0.85rem;
+            }
+        }
+        
+        /* للشاشات الصغيرة جداً (اقل من 480px) */
+        @media screen and (max-width: 480px) {
+            .nav-links {
+                gap: 0.3rem;
+            }
+            
+            .nav-links li a {
+                padding: 0.25rem 0.5rem;
+                font-size: 0.75rem;
+            }
+            
+            .cv-btn {
+                padding: 0.25rem 0.6rem !important;
+                font-size: 0.75rem !important;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .contact-icons a {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+            
+            .section-title {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#courses">Courses</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li class="cv-dropdown">
+                <a href="#" class="cv-btn"><i class="fas fa-download"></i> CV <i class="fas fa-chevron-down" style="font-size: 0.7rem;"></i></a>
+                <div class="cv-dropdown-content">
+                    <a href="#" id="downloadWord"><i class="fas fa-file-word"></i> Word</a>
+                    <a href="#" id="downloadPDF"><i class="fas fa-file-pdf"></i> PDF</a>
+                </div>
+            </li>
+            <li><button class="theme-toggle" id="themeToggle" aria-label="switch theme"><i class="fas fa-sun"></i></button></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <!-- HERO with name, USP, icons -->
+        <div class="hero">
+            <h1>Haneen Osama Mohamed</h1>
+            <div class="usp">Software Tester · QA Engineer · Problem Solver</div>
+            <div class="contact-icons">
+                <a href="https://www.linkedin.com/in/haneenosama" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://github.com/HaneenOsama16" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                <a href="mailto:asamhhnyn06@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+            </div>
+        </div>
+
+        <!-- ABOUT -->
+        <section id="about">
+            <h2 class="section-title"><i class="fas fa-user-astronaut"></i> About me</h2>
+            <div class="about-text">
+                <p>I'm a detail-oriented <strong>Software Tester</strong> with a passion for breaking things to make them better. With a strong foundation in <strong>OOP, Data Structures & Algorithms</strong>, I combine development thinking with rigorous testing. I love designing test scenarios, hunting bugs, and ensuring quality throughout the SDLC. Currently exploring advanced testing (ISTQB based) and automation tools.</p>
+            </div>
+        </section>
+
+        <!-- EDUCATION SECTION (NEW) -->
+        <section id="education">
+            <h2 class="section-title"><i class="fas fa-graduation-cap"></i> Education</h2>
+            <div class="education-card">
+                <div class="education-header">
+                    <i class="fas fa-university"></i>
+                    <h3>Bachelor of Computer Science</h3>
+                </div>
+                <div class="education-details">
+                    <p><strong>Faculty:</strong> Faculty of Computers and Information</p>
+                    <p><strong>University:</strong> Menofia University</p>
+                    <p><strong>Period:</strong> 10/2024 - Present</p>
+                    <span class="gpa-badge"><i class="fas fa-star"></i> GPA: 3.57 / 4.0 (Excellent)</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- SKILLS (two major blocks) -->
+        <section id="skills">
+            <h2 class="section-title"><i class="fas fa-code"></i> Tech & QA arsenal</h2>
+            <div class="skills-grid">
+                <!-- block 1: problem solving & core -->
+                <div class="skill-card">
+                    <div class="skill-icon"><i class="fas fa-brain"></i></div>
+                    <h3>Problem Solving Core</h3>
+                    <ul class="skill-items">
+                        <li>C++</li><li>OOP</li><li>Data Structure</li><li>Algorithms</li>
+                    </ul>
+                    <div class="skill-desc">
+                        <i class="fas fa-check-circle" style="color: var(--primary);"></i> 200+ problems solved on Codeforces · strong analytical thinking
+                    </div>
+                </div>
+                <!-- block 2: software testing & QA (courses & tools) -->
+                <div class="skill-card">
+                    <div class="skill-icon"><i class="fas fa-vial"></i></div>
+                    <h3>Software Testing & QA</h3>
+                    <ul class="skill-items" style="margin-bottom: 8px;">
+                        <li>ISTQB (4)</li><li>SDLC</li><li>Jira</li><li>Postman</li><li>Selenium</li><li>Agile</li><li>Database</li>
+                    </ul>
+                    <div class="skill-desc">
+                        <strong>Tools:</strong> Manual Testing, Automation, API Testing, Test Management
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- COURSES - DEPI only -->
+        <section id="courses">
+            <h2 class="section-title"><i class="fas fa-certificate"></i> Courses</h2>
+            <div class="course-card">
+                <div class="course-header">
+                    <i class="fas fa-laptop-code"></i>
+                    <h3>Digital Egypt Pioneers (DEPI)</h3>
+                </div>
+                <div class="course-badge">Software Testing Track · 01/2026 - Present</div>
+                <div class="skill-items" style="margin-top: 1rem;">
+                    <li>Prompt Engineering</li>
+                    <li>Java fundamentals</li>
+                    <li>ISTQB Fundamentals</li>
+                    <li>Testing Throughout SDLC</li>
+                    <li>Static Testing (Jira)</li>
+                    <li>Postman</li>
+                    <li>Selenium</li>
+                    <li>Test Analysis</li>
+                    <li>Test Management</li>
+                    <li>Database & Agile</li>
+                    <li>Capstone Project</li>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROJECTS -->
+        <section id="projects">
+            <h2 class="section-title"><i class="fas fa-flask"></i> Projects</h2>
+            <div class="projects-grid">
+                <!-- project 1: Hotel booking system -->
+                <div class="project-card">
+                    <div class="project-icon"><i class="fas fa-hotel"></i></div>
+                    <h3>Hotel Booking System</h3>
+                    <p>Java app for booking/cancellation. Implements OOP, exception handling, file handling, collections, manual & automated testing, Jira.</p>
+                    <a href="https://github.com/HaneenOsama16/Hotel-Booking-System1" target="_blank" class="project-link"><i class="fab fa-github"></i> Repo</a>
+                </div>
+                <!-- project 2: SauceDemo Manual Testing -->
+                <div class="project-card">
+                    <div class="project-icon"><i class="fas fa-clipboard-list"></i></div>
+                    <h3>SauceDemo Manual Testing</h3>
+                    <p>Manual test cases & bug reports for e-commerce site. Includes test planning, execution, and defect tracking.</p>
+                    <a href="https://github.com/HaneenOsama16/SauceDemo-Manual-Testing" target="_blank" class="project-link"><i class="fab fa-github"></i> Repo</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT + FORM -->
+        <section id="contact">
+            <h2 class="section-title"><i class="fas fa-paper-plane"></i> Let's connect</h2>
+            <div class="contact-form">
+                <form id="contactForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" placeholder="Your name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" placeholder="you@example.com" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" placeholder="I'd like to talk about..."></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn"><i class="fas fa-paper-plane"></i> Send message</button>
+                </form>
+                <p style="margin-top: 1.5rem; color: var(--text-muted); font-size: 0.95rem;"><i class="fas fa-envelope-open-text"></i> Or directly: <a href="mailto:asamhhnyn06@gmail.com" style="color:var(--primary);">asamhhnyn06@gmail.com</a></p>
+            </div>
+        </section>
+
+        <!-- BOTTOM CONTACT ICONS -->
+        <div class="bottom-contact">
+            <h3>Find me on</h3>
+            <div class="contact-icons">
+                <a href="https://www.linkedin.com/in/haneenosama" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://github.com/HaneenOsama16" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                <a href="mailto:asamhhnyn06@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2025 Haneen Osama — crafted with <i class="fas fa-heart" style="color: var(--primary);"></i> for quality</p>
+    </footer>
+
+    <script>
+        (function() {
+            const themeToggle = document.getElementById('themeToggle');
+            const body = document.body;
+            const icon = themeToggle.querySelector('i');
+
+            // Theme toggle
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('light');
+                if (body.classList.contains('light')) {
+                    icon.className = 'fas fa-moon';
+                } else {
+                    icon.className = 'fas fa-sun';
+                }
+            });
+
+           // CV Download - Word
+            document.getElementById('downloadWord').addEventListener('click', (e) => {
+                e.preventDefault();
+                window.open('https://docs.google.com/document/d/1CHTJtEFvRLOmv_hxnRKIzHAw0PiIMc5S/edit?usp=drive_link&ouid=111598597442289862395&rtpof=true&sd=true', '_blank');
+            });
+
+            // CV Download - PDF
+            document.getElementById('downloadPDF').addEventListener('click', (e) => {
+                e.preventDefault();
+                window.open('https://drive.google.com/file/d/13Yab_zUppmDzVvRbdeNxFj9YUgSZwfPS/view?usp=drive_link', '_blank');
+            });
+
+            // Contact form
+            const form = document.getElementById('contactForm');
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const name = document.getElementById('name').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const msg = document.getElementById('message').value.trim();
+                if (name && email && msg) {
+                    alert(`✨ Thanks for reaching out, ${name}! I'll get back to you soon.`);
+                    form.reset();
+                } else {
+                    alert('Please fill all fields.');
+                }
+            });
+
+            // Smooth scroll
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    if (this.getAttribute('href') !== '#') {
+                        e.preventDefault();
+                        const target = document.querySelector(this.getAttribute('href'));
+                        if (target) {
+                            target.scrollIntoView({ behavior: 'smooth' });
+                        }
+                    }
+                });
+            });
+        })();
+    </script>
+</body>
+</html>
